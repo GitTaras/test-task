@@ -1,17 +1,19 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-import Cart from './components/Cart/Cart';
+import Cart from './pages/CartPage';
 import Shipping from './components/Shipping/Shipping';
-import './App.css';
+import styles from './App.module.css';
 
 const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/cart" component={Cart} />
-      <Route path="/shipping" component={Shipping} />
-      <Redirect to="/cart"/>
-    </Switch>
-  </BrowserRouter>
+  <div className={styles.container}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/cart" component={Cart} />
+        <Route path="/shipping" component={Shipping} />
+        <Redirect to="/cart"/>
+      </Switch>
+    </BrowserRouter>
+  </div>
 );
 
 export default App;

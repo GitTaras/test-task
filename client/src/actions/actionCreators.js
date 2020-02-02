@@ -4,9 +4,10 @@ export const getCartItems = () => ({
   type: ACTION.FCART_ITEMS_LOADING,
 });
 
-export const getCartItemsSuccess = (items) => ({
+export const getCartItemsSuccess = (items, totalPrice) => ({
   type: ACTION.FCART_ITEMS_SUCCESS,
-  items
+  items,
+  totalPrice
 });
 
 export const getCartItemsError = (etext) => ({
