@@ -7,20 +7,20 @@ export const getCartItems = () => ({
 export const getCartItemsSuccess = (items, totalPrice) => ({
   type: ACTION.FCART_ITEMS_SUCCESS,
   items,
-  totalPrice
+  totalPrice,
 });
 
 export const getCartItemsError = etext => ({
   type: ACTION.FCART_ITEMS_ERROR,
-  etext
+  etext,
 });
 
 export const updateCartItem = item => ({
   type: ACTION.UPDATE_CART_ITEM,
-  item
+  item,
 });
 
 export const deleteCartItem = id => ({
   type: ACTION.DELETE_CART_ITEM,
-  id
+  id,
 });

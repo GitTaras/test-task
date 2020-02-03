@@ -1,10 +1,9 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import Cart from "../components/Cart/Cart";
-import {getCartItemsThunk} from '../thunks/index';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Cart from '../components/Cart/Cart';
+import { getCartItemsThunk } from '../thunks/index';
 
 class CartPage extends Component {
-
   componentDidMount() {
     const { getCartItems, items } = this.props;
     if (!items.length) {
@@ -13,19 +12,13 @@ class CartPage extends Component {
   }
 
   render() {
-    console.log("items---", this.props.items);
-    const {items, loading, error, etext, totalPrice} = this.props;
+    console.log('items---', this.props.items);
+    const { items, loading, error, etext, totalPrice } = this.props;
     return (
       <>
-      {
-        loading && <div>Loading...</div>
-      }
-      {
-        error && <div>{etext}</div>
-      }
-      {
-        !loading && !error && <Cart items={items} totalPrice={totalPrice}/>
-      }
+        {loading && <div>Loading...</div>}
+        {error && <div>{etext}</div>}
+        {!loading && !error && <Cart items={items} totalPrice={totalPrice} />}
       </>
     );
   }
@@ -36,7 +29,7 @@ const mapStateToProps = state => ({
   totalPrice: state.cartItems.totalPrice,
   loading: state.cartItems.loading,
   error: state.cartItems.error,
-  etext: state.cartItems.etext
+  etext: state.cartItems.etext,
 });
 
 const mapDispatchToProps = dispatch => ({

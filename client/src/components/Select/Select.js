@@ -10,24 +10,26 @@ export const Select = ({
   autoFocus,
   onBlur,
   onChange,
-  required
+  required,
 }) => (
-<>
-  <div className={style.container}>
-    <label className="label">{label}</label>
-    <select 
-      className={locked ? style.selectLock : ""}
-      name={name}
-      value={value}
-		  autoFocus={autoFocus}
-      onChange={onChange}
-      onBlur={onBlur}
-      required={required}
-    >
-      {options.map( op => 
-        <option key={op.name} value={op.name}>{op.value}</option>
-      )}
-    </select>
-  </div>
-</>
+  <>
+    <div className={style.container}>
+      <label className="label">{label}</label>
+      <select
+        className={locked ? style.selectLock : ''}
+        name={name}
+        value={value}
+        autoFocus={autoFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+        required={required}
+      >
+        {options.map(op => (
+          <option key={op.name} value={op.name}>
+            {op.value}
+          </option>
+        ))}
+      </select>
+    </div>
+  </>
 );
