@@ -23,6 +23,7 @@
 }
 
 .linkDisabled {
+  background-color: rgba(217, 225, 236, 0.938);
   pointer-events: none;
 }
 

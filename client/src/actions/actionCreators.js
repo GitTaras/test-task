@@ -10,17 +10,17 @@ export const getCartItemsSuccess = (items, totalPrice) => ({
   totalPrice
 });
 
-export const getCartItemsError = (etext) => ({
+export const getCartItemsError = etext => ({
   type: ACTION.FCART_ITEMS_ERROR,
   etext
 });
 
-export const updateCartItem = (item) => ({
+export const updateCartItem = item => ({
   type: ACTION.UPDATE_CART_ITEM,
   item
 });
 
-export const deleteCartItem = (id) => ({
+export const deleteCartItem = id => ({
   type: ACTION.DELETE_CART_ITEM,
   id
 });

@@ -1,61 +1,62 @@
 import React, {Component} from "react";
 import styles from './CartItem.module.css';
 import iconDelete from "../../images/icon-delete.png";
-import {updateCartItem, deleteCartItem} from '../../actions/actionCreators';
-import {connect} from "react-redux";
+import { updateCartItem, deleteCartItem } from '../../actions/actionCreators';
+import { connect } from "react-redux";
 
 class QuantityControls extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  };
-  }
-
-  onChange = (e) => {
-		const target = e.target;
-    const value = target.value;
-    const id = this.props.id;
-    if(this.validation(value)) {
-      this.props.updateCartItem({id, quantity: value});
+  onChange = ({ target: { value} }) => {
+    const { id, updateCartItem } = this.props;
+    if (this.validation(value)) {
+      updateCartItem({ id, quantity: value });
     }
-    //this.props.updateCartItem({id, quantity: this.props.quantity});
   }
   
-  validation = (value) => {
-    if(value>0 && value<51) {
-      return true;
+  validation = value => value > 0 && value < 51;
+
+  onDelete = () => this.props.deleteCartItem(this.props.id);
+  
+  updateQuantity = newQuantity => {
+    if (newQuantity > 0 && newQuantity <= 50) {
+      this.props.updateCartItem({id: this.props.id, quantity: newQuantity});
     }
-    return false;
-  }
-
-  onInc = () => {
-    const curQuantity = this.props.quantity;
-    if(curQuantity<=49)
-      this.props.updateCartItem({id: this.props.id, quantity: curQuantity+1});
-  }
-
-  onDelete = () => {
-    this.props.deleteCartItem(this.props.id);
-  }
-
-  onDec = () => {
-    const curQuantity = this.props.quantity;
-    if(curQuantity>1)
-      this.props.updateCartItem({id: this.props.id, quantity: curQuantity-1});
   }
 
   render() {
-    const {price, quantity} = this.props;
-    const {onDec, onInc, onDelete, onChange} = this;
+    const { price, quantity } = this.props;
+    const { updateQuantity, onDelete, onChange } = this;
     return (
       <div className={styles.controlsContainer}>
         <div>
-          <img src={iconDelete} alt="Press to delete item" className={styles.icon} onClick={onDelete}/>
+          <img 
+            src={iconDelete}
+            alt="Press to delete item"
+            className={styles.icon}
+            onClick={onDelete}/>
         </div>
         <div className={styles.quantityControl}>
           <div>
-            <button className={styles.plusButton} onClick={onInc}> + </button>
-            <input className={styles.unborderedInput} type="number" name="quantity" min="1" max="50" value={quantity} onChange={onChange}/>
-            <button className={styles.minusButton} onClick={onDec}> - </button>
+            <button
+              className={styles.plusButton}
+              onClick={() => updateQuantity(quantity + 1)}
+            >
+             +
+            </button>
+            <input 
+              className={styles.unborderedInput}
+              type="number"
+              name="quantity"
+              min="1"
+              max="50"
+              value={quantity}
+              onChange={onChange}
+            />
+            <button 
+              className={styles.minusButton}
+              onClick={() => updateQuantity(quantity - 1)}
+            >
+             -
+            </button>
           </div>        
           <span>{price * quantity}</span>
         </div>  
@@ -65,8 +66,8 @@ class QuantityControls extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  deleteCartItem: (id) => dispatch((deleteCartItem(id))),
-  updateCartItem: (item) => dispatch((updateCartItem(item))),
+  deleteCartItem: id => dispatch((deleteCartItem(id))),
+  updateCartItem: item => dispatch((updateCartItem(item))),
 });
 
 export default connect(null, mapDispatchToProps)(QuantityControls);

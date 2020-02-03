@@ -18,7 +18,7 @@ for(i = 0; i<10; i++) {
     "quantity": Math.floor(Math.random() * 50) + 1,
     "price": faker.commerce.price(),
   });
-  totalPrice += parseFloat(items[i].price);
+  totalPrice += parseFloat(items[i].price) * parseInt(items[i].quantity);
   console.log(totalPrice);
 }
 
