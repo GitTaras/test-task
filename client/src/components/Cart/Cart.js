@@ -9,7 +9,7 @@ const Cart = ({ items, totalPrice }) => (
       <CartItem key={item.id} {...item} />
     ))}
     <div className={styles.bottomContainer}>
-      <p className={styles.totalPrice}>{totalPrice}</p>
+      <p className={styles.totalPrice}>{Math.round(totalPrice *100)/100}</p>
       <Link to={'/Shipping'} className={styles.link}>
         Buy
       </Link>

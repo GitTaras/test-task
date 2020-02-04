@@ -44,7 +44,7 @@ class ShippingPage extends Component {
       address: '',
       phone: '',
       email: '',
-      shippingOption: shippingOptionsList[0],
+      shippingOption: shippingOptionsList[0].name,
       locked: false,
       ...errorState,
     };
