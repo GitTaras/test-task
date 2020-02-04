@@ -84,7 +84,7 @@ const Shipping = ({
         required={false}
       />
       <div className={bottomStyle.bottomContainer}>
-      <button
+        <button
           type="submit"
           disabled={disableButton}
           className={classnames(bottomStyle.link, {

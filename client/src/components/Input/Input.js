@@ -1,8 +1,6 @@
 import React from 'react';
 import style from './Input.module.css';
 
-const error = true;
-
 export const Input = ({
   name,
   value,
@@ -10,7 +8,7 @@ export const Input = ({
   placeholder,
   type,
   autoFocus,
-  error,
+  error,  
   onBlur,
   onChange,
   checked,

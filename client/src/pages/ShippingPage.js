@@ -95,9 +95,7 @@ class ShippingPage extends Component {
         this.setState({
           phoneError: {
             ...this.state.phoneError,
-            status: !value.match(
-              /^\+[1-9]{1}[0-9]{7,12}$/
-            ),
+            status: !value.match(/^\+[1-9]{1}[0-9]{7,12}$/),
           },
         });
         break;
@@ -115,17 +113,19 @@ class ShippingPage extends Component {
       this.state.phoneError.status
     );
   }
-    
 
   handleSubmit = e => {
     e.preventDefault();
     const currentShipping = shippingOptionsList.find(
       e => e.name === this.state.shippingOption
     );
-    const newTotalPrice = Math.round( 
-      (parseFloat(this.props.totalPrice) + parseFloat(currentShipping.additionalCoast)) * 100 
-    ) / 100;
-      
+    const newTotalPrice =
+      Math.round(
+        (parseFloat(this.props.totalPrice) +
+          parseFloat(currentShipping.additionalCoast)) *
+          100
+      ) / 100;
+
     alert(`Total ${newTotalPrice}`);
   };
 
@@ -141,10 +141,9 @@ class ShippingPage extends Component {
             handleSubmit={this.handleSubmit}
             {...this.state}
           />
-          ) : (
-            <Message text={"Your cart empty"} type={'info'} />
-          )
-        }
+        ) : (
+          <Message text={'Your cart empty'} type={'info'} />
+        )}
       </>
     );
   }

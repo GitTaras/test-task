@@ -13,7 +13,9 @@ export function getCartItemsThunk() {
         dispatch(getCartItemsSuccess(data.items, data.totalPrice));
       })
       .catch(error => {
-        const etext = error.response ? error.response.data.message : error.message;
+        const etext = error.response
+          ? error.response.data.message
+          : error.message;
         dispatch(getCartItemsError(etext));
       });
   };

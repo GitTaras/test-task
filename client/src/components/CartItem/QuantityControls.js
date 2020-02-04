@@ -59,7 +59,9 @@ class QuantityControls extends Component {
               -
             </button>
           </div>
-          <span>{(Math.round(parseFloat(price)* parseFloat(quantity) * 100) / 100)}</span>
+          <span>
+            {Math.round(parseFloat(price) * parseFloat(quantity) * 100) / 100}
+          </span>
         </div>
       </div>
     );
