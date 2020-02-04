@@ -9,7 +9,8 @@ const initialState = {
 };
 
 const getTotalPrice = items => {
-  return items.reduce((ac, cur) => ac + cur.quantity * cur.price, 0);
+  return items.reduce((ac, cur) => 
+    Math.round( (parseFloat(ac) + parseInt(cur.quantity) * parseFloat(cur.price)) * 100) / 100, 0);
 };
 
 export default function cartItems(state = initialState, action) {

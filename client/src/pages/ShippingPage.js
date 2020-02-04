@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Shipping from '../components/Shipping/Shipping';
+import Message from '../components/Message/Message';
 
 const shippingOptionsList = [
   { additionalCoast: 0, name: 'FREE SHIPPING', value: 'FREE SHIPPING' },
@@ -27,11 +28,11 @@ const errorState = {
   },
   addressError: {
     status: false,
-    message: 'Must be not empty',
+    message: "Can't be less then 2 character",
   },
   phoneError: {
     status: false,
-    message: 'Must be 8 character',
+    message: 'Must be 7-12 numbers, starting with +',
   },
 };
 
@@ -45,14 +46,14 @@ class ShippingPage extends Component {
       email: '',
       shippingOption: shippingOptionsList[0],
       locked: false,
-      dirty: false,
       ...errorState,
     };
   }
 
   componentDidMount() {
-    if (this.props.totalPrice > 300)
-      this.setState({ shippingOption: shippingOptionsList[0], locked: true });
+    if (this.props.totalPrice > 300) {
+      this.setState({ locked: true });
+    }
   }
 
   onChange = ({ target }) => {
@@ -66,7 +67,6 @@ class ShippingPage extends Component {
     switch (name) {
       case 'email':
         this.setState({
-          ...this.state,
           emailError: {
             ...this.state.emailError,
             status: !value.match(
@@ -77,7 +77,6 @@ class ShippingPage extends Component {
         break;
       case 'name':
         this.setState({
-          ...this.state,
           nameError: {
             ...this.state.nameError,
             status: value.trim().length <= 2,
@@ -86,7 +85,6 @@ class ShippingPage extends Component {
         break;
       case 'address':
         this.setState({
-          ...this.state,
           addressError: {
             ...this.state.addressError,
             status: value.trim().length <= 2,
@@ -95,11 +93,10 @@ class ShippingPage extends Component {
         break;
       case 'phone': {
         this.setState({
-          ...this.state,
           phoneError: {
             ...this.state.phoneError,
             status: !value.match(
-              /\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/
+              /^\+[1-9]{1}[0-9]{7,12}$/
             ),
           },
         });
@@ -110,19 +107,25 @@ class ShippingPage extends Component {
     }
   };
 
-  disableButton = () =>
-    this.state.nameError.status ||
-    this.state.addressError.status ||
-    this.state.emailError.status ||
-    this.state.phoneError.status;
+  get disableButton() {
+    return (
+      this.state.nameError.status ||
+      this.state.addressError.status ||
+      this.state.emailError.status ||
+      this.state.phoneError.status
+    );
+  }
+    
 
   handleSubmit = e => {
     e.preventDefault();
-    const newTotalPrice =
-      this.props.totalPrice +
-      shippingOptionsList.find(e => e.name === this.state.shippingOption)
-        .additionalCoast;
-
+    const currentShipping = shippingOptionsList.find(
+      e => e.name === this.state.shippingOption
+    );
+    const newTotalPrice = Math.round( 
+      (parseFloat(this.props.totalPrice) + parseFloat(currentShipping.additionalCoast)) * 100 
+    ) / 100;
+      
     alert(`Total ${newTotalPrice}`);
   };
 
@@ -138,9 +141,10 @@ class ShippingPage extends Component {
             handleSubmit={this.handleSubmit}
             {...this.state}
           />
-        ) : (
-          <h1>Your cart empty</h1>
-        )}
+          ) : (
+            <Message text={"Your cart empty"} type={'info'} />
+          )
+        }
       </>
     );
   }

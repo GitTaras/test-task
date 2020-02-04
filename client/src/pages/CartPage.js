@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cart from '../components/Cart/Cart';
 import { getCartItemsThunk } from '../thunks/index';
+import Message from '../components/Message/Message';
+import SkeletonCart from '../components/Skeleton/SkeletonCart';
 
 class CartPage extends Component {
   componentDidMount() {
@@ -12,13 +14,12 @@ class CartPage extends Component {
   }
 
   render() {
-    console.log('items---', this.props.items);
-    const { items, loading, error, etext, totalPrice } = this.props;
+    const { items, isLoading, error, etext, totalPrice } = this.props;
     return (
       <>
-        {loading && <div>Loading...</div>}
-        {error && <div>{etext}</div>}
-        {!loading && !error && <Cart items={items} totalPrice={totalPrice} />}
+        {isLoading && <SkeletonCart />}
+        {error && <Message text={etext} />}
+        {!isLoading && !error && <Cart items={items} totalPrice={totalPrice} />}
       </>
     );
   }
@@ -27,7 +28,7 @@ class CartPage extends Component {
 const mapStateToProps = state => ({
   items: state.cartItems.items,
   totalPrice: state.cartItems.totalPrice,
-  loading: state.cartItems.loading,
+  isLoading: state.cartItems.isLoading,
   error: state.cartItems.error,
   etext: state.cartItems.etext,
 });

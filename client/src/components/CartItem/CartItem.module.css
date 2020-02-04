@@ -15,7 +15,6 @@
   box-shadow: 0 0px 2px 0 rgba(0,0,0,0.2);
 }
 
-
 .infoContainer {
   display: flex;
   width: 100%;
@@ -119,6 +118,7 @@
 
 .plusButton:hover, .minusButton:hover {
   background-color: rgba(37, 28, 28, 0.075);
+  cursor: pointer;
 }
 
 .plusButton:active, .minusButton:active {
@@ -136,6 +136,7 @@
 
 .icon:hover {
   box-shadow: 0 2px 2px 0 rgba(224, 206, 206, 0.445), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
 }
 
 .icon:active {

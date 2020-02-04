@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import bottomStyle from '../Cart/Button.module.css';
 import styles from './Shipping.module.css';
 import { Input } from '../Input/Input';
 import { Select } from '../Select/Select';
+import classnames from 'classnames';
 
 const Shipping = ({
   locked,
@@ -84,14 +84,12 @@ const Shipping = ({
         required={false}
       />
       <div className={bottomStyle.bottomContainer}>
-        <button
+      <button
           type="submit"
-          disabled={disableButton()}
-          className={
-            disableButton()
-              ? `${bottomStyle.link} ${bottomStyle.linkDisabled}`
-              : bottomStyle.link
-          }
+          disabled={disableButton}
+          className={classnames(bottomStyle.link, {
+            [bottomStyle.linkDisabled]: disableButton,
+          })}
         >
           Pay
         </button>

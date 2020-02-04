@@ -13,8 +13,8 @@ export function getCartItemsThunk() {
         dispatch(getCartItemsSuccess(data.items, data.totalPrice));
       })
       .catch(error => {
-        console.log(error);
-        dispatch(getCartItemsError(error.message));
+        const etext = error.response ? error.response.data.message : error.message;
+        dispatch(getCartItemsError(etext));
       });
   };
 }

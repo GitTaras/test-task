@@ -9,23 +9,19 @@ app.use(express.json());
 
 const items = [];
 let totalPrice = 0;
-for(i = 0; i<10; i++) {
+for(i = 0; i < 5; i++) {
   items.push({
     "id": faker.random.uuid(),
     "image": faker.image.imageUrl(),
     "title": faker.commerce.productName(),
     "description": faker.lorem.sentences(), 
     "quantity": Math.floor(Math.random() * 50) + 1,
-    "price": faker.commerce.price(),
+    "price": Math.round( ((Math.random() * 5) + 1) * 100 ) / 100,
   });
-  totalPrice += parseFloat(items[i].price) * parseInt(items[i].quantity);
-  console.log(totalPrice);
+  totalPrice += Math.round(items[i].price * parseInt(items[i].quantity) * 100) / 100;
 }
 
-// console.log("data",items);
-
 app.get('/api/cart', (req, res)=>{
-  //res.status(404).send();
   res.send({items, totalPrice});
 });
 
